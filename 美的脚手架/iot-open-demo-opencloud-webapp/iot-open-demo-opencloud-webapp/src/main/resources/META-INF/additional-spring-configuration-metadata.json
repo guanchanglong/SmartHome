@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "demo.mideaUri",
+      "type": "java.lang.String",
+      "description": "Description for demo.mideaUri."
+    },
+    {
+      "name": "demo.clientId",
+      "type": "java.lang.String",
+      "description": "Description for demo.clientId."
+    }
+  ] }

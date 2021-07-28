@@ -1,0 +1,30 @@
+apollo:
+  bootstrap:
+    enabled: true
+
+#启用http服务用的
+server:
+  servlet:
+    context-path: /demo-opencloud
+  port: 8010
+  session-timeout: 1
+  compression.enabled: true
+  compression.min-response-size: 1
+  compression.mime-types: text/plain,application/json
+  tomcat:
+    basedir: /example/sn
+    access-log-enabled: true
+    accesslog.directory:
+    accesslog.pattern: common
+    accesslog.prefix: access_log
+    accesslog.suffix: .log
+    protocol-header: x-forwarded-proto
+    remote-ip-header: x-forwarded-for
+    uri-encoding: UTF-8
+    max-threads: 2000
+    acceptCount: '2000'
+    maxKeepAliveRequests: '1'
+
+demo:
+  mideaUri: https://www.baidu.com/
+  clientId: test

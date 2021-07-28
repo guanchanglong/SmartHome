@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/bootstrap.css}"  rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap-theme.css}"  rel="stylesheet"/>
+    <script th:src="@{/js/jquery.min.js}" ></script>
+    <script th:src="@{/js/bootstrap.min.js}" ></script>
+    <base th:href="@{/}">
+    <!--授权页面示范-->
+    <title>Demo示例页面</title>
+</head>
+<script>
+        $(function(){
+            $("#submit").click(function () {
+                var postJson = {
+                    "state": document.getElementById("body-hidden-state").value,
+                    "client_id": document.getElementById("body-hidden-client_id").value,
+                    "response_type": document.getElementById("body-hidden-response_type").value,
+                    "redirect_uri": document.getElementById("body-hidden-redirect_uri").value,
+                    "username" : document.getElementById("username").value,
+                    "password" : document.getElementById("password").value
+                };
+                $.ajax({
+                    url: document.baseURI + "login",
+                    dataType: "JSON",
+                    contentType: "application/json;charset=utf-8",
+                    type: "post",
+                    data: JSON.stringify(postJson),
+                    success: function(result) {
+                        if (result.code === 0) {
+                            //登录成功
+                            //TODO 登陆成功提示
+                            location.href = result.redirect_uri;
+                        } else {
+                            //TODO 登陆失败提示
+                            alert(result.message);
+                        }
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        //请求失败
+                        //TODO 登陆失败提示
+                        alert('服务器忙!');
+                    }
+                });
+            });
+        });
+</script>
+<body>
+
+
+<div class="modal-dialog" style="margin-top: 10%;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-center" id="myModalLabel">auth2.0认证Demo</h4>
+        </div>
+        <div class="modal-body" id = "model-body">
+            <form name="form1" id="form1" class="form1" method="post">
+                <input type="hidden" id="body-hidden-state" th:value="${state}"/>
+                <input type="hidden" id="body-hidden-client_id" th:value="${client_id}"/>
+                <input type="hidden" id="body-hidden-response_type" th:value="${response_type}"/>
+                <input type="hidden" id="body-hidden-redirect_uri" th:value="${redirect_uri}"/>
+            </form>
+            <div class="form-group">
+                <input type="text" id="username" name="username" value="13511111111" class="form-control"placeholder="用户名" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" value="123456" class="form-control" placeholder="密码" autocomplete="off">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group">
+                <button type="button" id="submit" class="btn btn-primary form-control">登录</button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default form-control">注册</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
